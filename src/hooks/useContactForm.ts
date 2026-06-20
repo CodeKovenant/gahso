@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
@@ -57,10 +56,13 @@ export function useContactForm(options: UseContactFormOptions = {}) {
 
     setIsSubmitting(true);
 
+    const apiUrl = import.meta.env.VITE_API_URL ?? "";
+
     try {
-      // Use edge function with rate limiting
-      const { data: response, error } = await supabase.functions.invoke("submit-contact", {
-        body: {
+      const res = await fetch(`${apiUrl}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           first_name: data.first_name.trim(),
           last_name: data.last_name.trim(),
           email: data.email.trim(),
@@ -68,35 +70,30 @@ export function useContactForm(options: UseContactFormOptions = {}) {
           subject: data.subject.trim(),
           message: data.message.trim(),
           source,
-        },
+        }),
       });
 
-      if (error) {
-        console.error("Contact form submission error:", error);
-        toast({
-          title: "Submission Failed",
-          description: "There was an error sending your message. Please try again.",
-          variant: "destructive",
-        });
-        return false;
-      }
+      const response = await res.json().catch(() => ({}));
 
-      // Check for rate limiting response
-      if (response?.error) {
-        if (response.retryAfter) {
+      if (!res.ok) {
+        console.error("Contact form submission error:", response);
+
+        // Handle rate limiting (429)
+        if (res.status === 429 && response?.retryAfter) {
           const minutes = Math.ceil(response.retryAfter / 60);
           toast({
             title: "Too Many Submissions",
-            description: `Please wait ${minutes} minute${minutes > 1 ? 's' : ''} before submitting again.`,
+            description: `Please wait ${minutes} minute${minutes > 1 ? "s" : ""} before submitting again.`,
             variant: "destructive",
           });
-        } else {
-          toast({
-            title: "Submission Failed",
-            description: response.error || "There was an error sending your message.",
-            variant: "destructive",
-          });
+          return false;
         }
+
+        toast({
+          title: "Submission Failed",
+          description: response?.error ?? "There was an error sending your message. Please try again.",
+          variant: "destructive",
+        });
         return false;
       }
 
