@@ -1,4 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Client } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -141,7 +141,7 @@ Deno.serve(async (req) => {
 
     // Check rate limit
     const rateLimit = checkRateLimit(clientIp);
-    
+
     if (!rateLimit.allowed) {
       console.log(`Rate limit exceeded for IP: ${clientIp}`);
       return new Response(
@@ -174,31 +174,37 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Create Supabase client with service role for server-side operations
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    // Insert contact submission
-    const { error: insertError } = await supabase
-      .from("contact_submissions")
-      .insert({
-        first_name: body.first_name.trim(),
-        last_name: body.last_name.trim(),
-        email: body.email.trim(),
-        phone: body.phone?.trim() || null,
-        subject: body.subject.trim(),
-        message: body.message.trim(),
-        source: body.source?.trim() || "contact_page",
-      });
-
-    if (insertError) {
-      console.error("Database insert error:", insertError);
+    // Connect to Railway Postgres using DATABASE_URL
+    const databaseUrl = Deno.env.get("DATABASE_URL");
+    if (!databaseUrl) {
+      console.error("DATABASE_URL environment variable is not set");
       return new Response(
-        JSON.stringify({ error: "Failed to submit contact form" }),
+        JSON.stringify({ error: "Database configuration error" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
+    }
+
+    const client = new Client(databaseUrl);
+    await client.connect();
+
+    try {
+      // Insert contact submission
+      await client.queryObject(
+        `INSERT INTO contact_submissions
+          (first_name, last_name, email, phone, subject, message, source)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          body.first_name.trim(),
+          body.last_name.trim(),
+          body.email.trim(),
+          body.phone?.trim() || null,
+          body.subject.trim(),
+          body.message.trim(),
+          body.source?.trim() || "contact_page",
+        ]
+      );
+    } finally {
+      await client.end();
     }
 
     console.log(`Contact form submitted successfully from IP: ${clientIp}, remaining: ${rateLimit.remaining}`);
