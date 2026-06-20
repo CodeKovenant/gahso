@@ -1,0 +1,7 @@
+project_id = "svjtaqcimqnamnqzmxld"
+
+[functions.submit-contact]
+verify_jwt = false
+
+[functions.intasend-checkout]
+verify_jwt = false
