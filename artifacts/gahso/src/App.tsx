@@ -18,6 +18,7 @@ import Impact from "./pages/Impact";
 import GetInvolved from "./pages/GetInvolved";
 import Donate from "./pages/Donate";
 import Contact from "./pages/Contact";
+import OurHistory from "./pages/OurHistory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
+          <Route path="/our-history" element={<OurHistory />} />
           <Route path="/programs" element={<Programs />} />
           <Route path="/tatua-farms" element={<TatuaFarms />} />
           <Route path="/mloflow" element={<MloFlow />} />

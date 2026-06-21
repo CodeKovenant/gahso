@@ -16,13 +16,17 @@ import {
 import logo from "@/assets/logo.png";
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
   { name: "Impact", path: "/impact" },
-  
   { name: "Get Involved", path: "/get-involved" },
   { name: "Contact", path: "/contact" },
 ];
+
+const aboutLinks = [
+  { name: "About Us", path: "/about" },
+  { name: "Our History", path: "/our-history" },
+];
+
+const allAboutPaths = aboutLinks.map(l => l.path);
 
 const tatuaInitiativeLinks = [
   { name: "TaTua Farms", path: "/tatua-farms" },
@@ -61,24 +65,53 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.slice(0, 2).map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={cn(
-                  "text-base font-medium transition-colors hover:text-primary relative",
-                  location.pathname === link.path
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                )}
-              >
-                {link.name}
-                {location.pathname === link.path && (
+            {/* Home */}
+            <Link
+              to="/"
+              className={cn(
+                "text-base font-medium transition-colors hover:text-primary relative",
+                location.pathname === "/"
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              )}
+            >
+              Home
+              {location.pathname === "/" && (
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
+              )}
+            </Link>
+
+            {/* About Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(
+                "text-base font-medium transition-colors hover:text-primary relative flex items-center gap-1 outline-none",
+                allAboutPaths.some(p => location.pathname === p)
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              )}>
+                About
+                <ChevronDown className="w-4 h-4" />
+                {allAboutPaths.some(p => location.pathname === p) && (
                   <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
                 )}
-              </Link>
-            ))}
-            
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-44">
+                {aboutLinks.map((link) => (
+                  <DropdownMenuItem key={link.path} asChild>
+                    <Link
+                      to={link.path}
+                      className={cn(
+                        "w-full cursor-pointer",
+                        location.pathname === link.path && "text-primary font-medium"
+                      )}
+                    >
+                      {link.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {/* Programs Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
@@ -149,7 +182,7 @@ export function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {navLinks.slice(2).map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -195,22 +228,42 @@ export function Navbar() {
         {isOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-border pt-4 animate-fade-in">
             <div className="flex flex-col gap-4">
-              {navLinks.slice(0, 2).map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "text-base font-medium transition-colors py-2",
-                    location.pathname === link.path
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  )}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              
+              {/* Home */}
+              <Link
+                to="/"
+                onClick={() => setIsOpen(false)}
+                className={cn(
+                  "text-base font-medium transition-colors py-2",
+                  location.pathname === "/"
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                Home
+              </Link>
+
+              {/* About Section */}
+              <div className="py-2">
+                <span className="text-base font-medium text-foreground">About</span>
+                <div className="ml-4 mt-2 flex flex-col gap-2">
+                  {aboutLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "text-sm font-medium transition-colors py-1",
+                        location.pathname === link.path
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-primary"
+                      )}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               {/* Programs Section */}
               <div className="py-2">
                 <span className="text-base font-medium text-foreground">Programs</span>
@@ -280,7 +333,7 @@ export function Navbar() {
                 </div>
               </div>
 
-              {navLinks.slice(2).map((link) => (
+              {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
