@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Target, Leaf, Users, CheckCircle, ArrowRight } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroPrograms from "@/assets/hero-programs.jpg";
+import heroFunded from "@/assets/hero-funded-projects.jpeg";
 import programCommunityDevelopment from "@/assets/program-community-development.jpg";
 
 const YouthVoice = () => {
@@ -48,7 +48,7 @@ const YouthVoice = () => {
       <section ref={heroRef} className="relative section-padding pt-32 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={heroPrograms}
+            src={heroFunded}
             alt="Youth Voice Climate-Resilient Food Security"
             className={cn(
               "w-full h-full object-cover transition-all duration-1000",

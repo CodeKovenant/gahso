@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Users, Target, ArrowRight, Accessibility, Activity, Leaf, Smartphone } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroPrograms from "@/assets/hero-programs.jpg";
+import heroPrograms from "@/assets/hero-programs.jpeg";
 import programYouthLeadership from "@/assets/program-youth-leadership-new.jpg";
 import programWomenEmpowerment from "@/assets/program-women-empowerment.jpg";
 import programDisabilityInclusion from "@/assets/program-disability-inclusion.jpg";

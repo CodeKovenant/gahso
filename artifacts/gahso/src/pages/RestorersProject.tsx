@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Target, Shield, Users, CheckCircle, ArrowRight, Handshake } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroPrograms from "@/assets/hero-programs.jpg";
+import heroFunded from "@/assets/hero-funded-projects.jpeg";
 import programWomenEmpowerment from "@/assets/program-women-empowerment.jpg";
 
 const RestorersProject = () => {
@@ -49,7 +49,7 @@ const RestorersProject = () => {
       <section ref={heroRef} className="relative section-padding pt-32 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={heroPrograms}
+            src={heroFunded}
             alt="The Restorers Project"
             className={cn(
               "w-full h-full object-cover transition-all duration-1000",

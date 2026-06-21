@@ -5,7 +5,7 @@ import { Heart, Users, Handshake, Briefcase, Mail, ArrowRight, CheckCircle } fro
 import { VolunteerApplicationForm } from "@/components/VolunteerApplicationForm";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroGetInvolved from "@/assets/hero-get-involved.jpg";
+import heroGetInvolved from "@/assets/hero-get-involved.jpeg";
 
 const volunteerOpportunities = [
   {

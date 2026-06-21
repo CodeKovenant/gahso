@@ -6,7 +6,7 @@ import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { TimelineSection } from "@/components/TimelineSection";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroAbout from "@/assets/hero-about-community.jpg";
+import heroAbout from "@/assets/hero-about-community.jpeg";
 import youthLedApproach from "@/assets/youth-led-approach.jpg";
 import teamDaphine from "@/assets/team-daphine-auma.jpg";
 import teamFrank from "@/assets/team-frank-jumba.jpg";

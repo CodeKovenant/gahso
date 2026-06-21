@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, Users, Globe, Award, TrendingUp, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroImpact from "@/assets/hero-impact.jpg";
+import heroImpact from "@/assets/hero-impact.jpeg";
 import programYouthLeadership from "@/assets/program-youth-leadership.jpg";
 import programWomenEmpowerment from "@/assets/program-women-empowerment.jpg";
 import programDisabilityInclusion from "@/assets/program-disability-inclusion.jpg";
