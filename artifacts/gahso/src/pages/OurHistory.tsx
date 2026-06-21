@@ -86,12 +86,12 @@ const OurHistory = () => {
               {/* Copy — left on desktop */}
               <div className="order-2 md:order-1">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-3">
-                  Co-Founder
+                  Director of Finance and Administration
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
                   Peter Gregory Odhiambo
                 </h2>
-                <p className="text-primary font-medium mb-6">Co-Founder, GAHSO</p>
+                <p className="text-primary font-medium mb-6">Director of Finance and Administration, GAHSO</p>
                 <p className="text-muted-foreground leading-relaxed">
                   Peter Gregory Odhiambo co-founded GAHSO with a deep commitment to building
                   systems that serve the most vulnerable. His strategic vision and experience in
