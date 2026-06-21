@@ -107,7 +107,7 @@ const boardMembers = [
   },
   {
     name: "Peter Gregory",
-    role: "Board Member",
+    role: "Director of Finance and Administration",
     image: boardPeter,
     bio: "Highly experienced financial management professional with over 5 years of experience in grants administration of more than 5 donor funds. Strong program management includes launch through closeout, human resource management, financial planning, cooperative agreement compliance, sub-award management, and reporting. Has worked with USAID, CDC, Catholic Relief Services, Uhai Eashri, and African Women Development Fund (AWDF). Proven ability to design and maintain accounting systems, prepare periodic financial reports, and supervise staff accountants. Holds degree in Business Administration with IT (Finance Option) from Maseno University and Master's Degree in Business Administration (Finance Option) from The University of Nairobi.",
   },
