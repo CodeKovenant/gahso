@@ -24,7 +24,7 @@ import advisoryAbdi from "@/assets/advisory-abdi-roba.png";
 import advisoryMartijn from "@/assets/advisory-martijn-knottnerus.png";
 import advisoryMakena from "@/assets/advisory-makena-mbungu.png";
 import boardBernadette from "@/assets/board-bernadette-ojao.jpg";
-import teamJob from "@/assets/team-job-bunanga.jpg";
+import teamPauline from "@/assets/team-pauline-adongo.jpeg";
 import teamAbdirahim from "@/assets/team-abdirahim-abdullahi.jpg";
 
 // Secretariat (Staff)
@@ -36,10 +36,10 @@ const leadership = [
     bio: "Daphine is the Founder, Secretary to the Board and Executive Director, providing strategic leadership and oversight for community-based programs that advance community development and women empowerment. She leads the organization's work to design, implement, and manage initiatives that promote education, social inclusion, and sustainable livelihoods for vulnerable populations, while ensuring strong partnerships, accountability, and measurable impact. Daphine has built her career through active engagement in grassroots development and has managed multi-million-dollar projects, demonstrating the ability to steward donor resources responsibly and translate funding into meaningful community outcomes. She holds a Bachelor of Education (Arts) in English and Literature from Kenyatta University. Her academic background, combined with extensive hands-on community experience, has strengthened her communication, leadership, and program management skills. Daphine is widely respected for her integrity, humility, calm leadership style, and dedication to service.",
   },
   {
-    name: "Job Bunanga",
+    name: "Pauline Adongo",
     role: "Deputy Director Programs",
-    image: teamJob,
-    bio: "Job Bunanga is the Deputy Director Programs at the Global Alliance for a Healthy Society (GAHSO), with expertise in strategic planning, program design, and development coordination. He supports the organization's vision by aligning projects with national and global development priorities. With a background in applied mathematics, data analytics, and software development, Job applies evidence-based and technology-driven approaches to enhance community resilience, improve livelihoods, and promote inclusive development. He has contributed to initiatives in climate resilience, food security, youth empowerment, and public participation, particularly in marginalized communities. Job is committed to advancing sustainable development through strong partnerships, data-driven decision-making, and community-centered solutions.",
+    image: teamPauline,
+    bio: "Passionate entrepreneur and community-minded leader dedicated to empowering women, building meaningful connections, and creating positive impact through business. Driven by purpose, growth, and service, she believes in inspiring others through leadership, resilience, and collaboration.",
   },
   {
     name: "Mike Nyabolah",
