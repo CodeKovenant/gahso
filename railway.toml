@@ -1,5 +1,5 @@
 [build]
-builder = "NIXPACKS"
+builder = "RAILPACK"
 buildCommand = "pnpm install --frozen-lockfile && BASE_PATH=/ pnpm --filter @workspace/gahso run build && pnpm --filter @workspace/api-server run build"
 
 [deploy]
