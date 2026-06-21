@@ -36,9 +36,9 @@ app.use("/api", router);
 // In production, serve the Vite-built frontend and handle SPA routing
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const frontendDist = path.resolve(__dirname, "../../artifacts/gahso/dist/public");
+  const frontendDist = path.resolve(__dirname, "../../../artifacts/gahso/dist/public");
   app.use(express.static(frontendDist));
-  app.get("*", (_req, res) => {
+  app.get("/{*path}", (_req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
