@@ -17,7 +17,7 @@ import leaderMike from "@/assets/team-mike-nyabola.png";
 import leaderMary from "@/assets/team-mary-nyakairu.png";
 import boardDona from "@/assets/board-dona-kamia.png";
 import boardJoy from "@/assets/board-joy-mboya.png";
-import boardPeter from "@/assets/board-peter-gregory.png";
+import boardPeter from "@/assets/cofounder-peter-gregory.jpeg";
 import boardPriscilla from "@/assets/board-priscilla-ombongi.png";
 import advisoryOtelemate from "@/assets/advisory-otelemate-jacqueline.png";
 import advisoryAbdi from "@/assets/advisory-abdi-roba.png";
