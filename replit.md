@@ -1,36 +1,45 @@
-# [Project name]
+# GAHSO — Global Alliance for a Healthy Society
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A nonprofit website for GAHSO (Global Alliance for a Healthy Society), a youth-led Public Benefit Organization operating in Kenya and the UK, empowering marginalized communities through evidence-based, community-driven programs.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080, at `/api`)
+- `pnpm --filter @workspace/gahso run dev` — run the frontend (Vite dev server)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required env: `DATABASE_URL` — Postgres connection string (for future use)
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
+- Frontend: React + Vite, Tailwind CSS v3, react-router-dom
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
+- DB: PostgreSQL + Drizzle ORM (provisioned but not yet used)
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/gahso/` — React + Vite frontend (full GAHSO website)
+- `artifacts/api-server/` — Express API server
+- `artifacts/api-server/src/routes/contact.ts` — Contact form submission endpoint (`POST /api/submit-contact`)
+- `lib/db/` — Drizzle ORM schema (empty, ready for future use)
+- `lib/api-spec/openapi.yaml` — OpenAPI spec (health check only for now)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Migrated from Lovable.dev / Supabase to Replit monorepo stack.
+- Supabase edge function `submit-contact` replaced with Express route at `POST /api/submit-contact`.
+- `@supabase/supabase-js` removed from frontend; a thin shim in `src/integrations/supabase/client.ts` maintains API compatibility with the existing `useContactForm` hook.
+- Tailwind CSS v3 (postcss plugin) used instead of `@tailwindcss/vite` (Tailwind v4) — the imported app used v3.
+- Uses `react-router-dom` (BrowserRouter) — not wouter — as that's what the original app shipped with.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Multi-page nonprofit website with:
+- Home, About, Programs (with sub-pages: Tatua Farms, MloFlow, Tatua Salon, Youth Voice, Digital Inclusion, Restorers Project, InnovHubs), Impact, Get Involved, Donate, Contact pages
+- Contact form that submits to the Express backend (`/api/submit-contact`)
+- Responsive design with warm coral/orange + teal nonprofit branding
 
 ## User preferences
 
@@ -38,7 +47,8 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Do NOT use `@tailwindcss/vite` — the app uses Tailwind v3 with postcss. Keep the `css.postcss.plugins` config in `vite.config.ts`.
+- `BrowserRouter` base path handling: the Vite `BASE_URL` is set to `/` so react-router-dom routes work at the root. If the preview path ever changes, update the router base.
 
 ## Pointers
 
