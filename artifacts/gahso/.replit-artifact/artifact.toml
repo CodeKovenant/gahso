@@ -19,7 +19,7 @@ run = "pnpm --filter @workspace/gahso run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/gahso", "run", "build" ]
-publicDir = "artifacts/gahso/dist/public"
+publicDir = "artifacts/gahso/dist"
 serve = "static"
 
 [[services.production.rewrites]]

@@ -2,7 +2,7 @@
   "framework": null,
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm --filter @workspace/gahso run build",
-  "outputDirectory": "artifacts/gahso/dist/public",
+  "outputDirectory": "artifacts/gahso/dist",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

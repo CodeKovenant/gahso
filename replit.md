@@ -5,7 +5,7 @@ A nonprofit website for GAHSO (Global Alliance for a Healthy Society), a youth-l
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080, at `/api`)
-- `pnpm --filter @workspace/gahso run dev` — run the frontend (Vite dev server)
+- `pnpm --filter @workspace/gahso run dev` — run the frontend (Vite dev server, port 23164)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - Required env: `DATABASE_URL` — Postgres connection string (for future use)
@@ -58,7 +58,7 @@ The project is Vercel-ready. Key files:
 - `api/index.ts` — Vercel serverless function entry (re-exports the Express app)
 
 **How it works on Vercel:**
-- Build: `pnpm --filter @workspace/gahso run build` → output at `artifacts/gahso/dist/public`
+- Build: `pnpm --filter @workspace/gahso run build` → output at `artifacts/gahso/dist`
 - `/api/*` requests → serverless function (`api/index.ts` → Express)
 - Everything else → SPA static files served from the CDN
 

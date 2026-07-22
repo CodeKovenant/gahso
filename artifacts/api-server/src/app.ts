@@ -37,7 +37,7 @@ app.use("/api", router);
 // On Vercel the frontend is served from the CDN; the function only handles /api/*.
 if (process.env.NODE_ENV === "production" && !process.env.VERCEL) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const frontendDist = path.resolve(__dirname, "../../../artifacts/gahso/dist/public");
+  const frontendDist = path.resolve(__dirname, "../../../artifacts/gahso/dist");
   app.use(express.static(frontendDist));
   app.get("/{*path}", (_req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
