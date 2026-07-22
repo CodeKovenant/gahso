@@ -1,0 +1,16 @@
+# Replit-specific files
+.replit
+.replitignore
+.cache
+.agents
+.local
+.migration-backup
+
+# Build artefacts (Vercel rebuilds from source)
+artifacts/api-server/dist
+artifacts/gahso/dist
+artifacts/mockup-sandbox
+
+# Test / dev tooling
+**/*.test.ts
+**/*.spec.ts

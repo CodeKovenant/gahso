@@ -33,8 +33,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
 
-// In production, serve the Vite-built frontend and handle SPA routing
-if (process.env.NODE_ENV === "production") {
+// In production (non-Vercel), serve the Vite-built frontend and handle SPA routing.
+// On Vercel the frontend is served from the CDN; the function only handles /api/*.
+if (process.env.NODE_ENV === "production" && !process.env.VERCEL) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const frontendDist = path.resolve(__dirname, "../../../artifacts/gahso/dist/public");
   app.use(express.static(frontendDist));

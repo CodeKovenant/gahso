@@ -50,6 +50,24 @@ _Populate as you build — explicit user instructions worth remembering across s
 - Do NOT use `@tailwindcss/vite` — the app uses Tailwind v3 with postcss. Keep the `css.postcss.plugins` config in `vite.config.ts`.
 - `BrowserRouter` base path handling: the Vite `BASE_URL` is set to `/` so react-router-dom routes work at the root. If the preview path ever changes, update the router base.
 
+## Vercel Deployment
+
+The project is Vercel-ready. Key files:
+
+- `vercel.json` — build config, output dir, and rewrite rules
+- `api/index.ts` — Vercel serverless function entry (re-exports the Express app)
+
+**How it works on Vercel:**
+- Build: `pnpm --filter @workspace/gahso run build` → output at `artifacts/gahso/dist/public`
+- `/api/*` requests → serverless function (`api/index.ts` → Express)
+- Everything else → SPA static files served from the CDN
+
+**Required env vars in Vercel dashboard:**
+- `DATABASE_URL` — PostgreSQL connection string (contact form submissions)
+- `SESSION_SECRET` — session signing secret
+
+**To deploy:** connect the GitHub repo in the Vercel dashboard; it will pick up `vercel.json` automatically. No framework preset needed (set to "Other").
+
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
