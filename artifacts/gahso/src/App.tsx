@@ -15,6 +15,7 @@ const MloFlow = lazy(() => import("./pages/MloFlow"));
 const TatuaSalon = lazy(() => import("./pages/TatuaSalon"));
 const YouthVoice = lazy(() => import("./pages/YouthVoice"));
 const DigitalInclusion = lazy(() => import("./pages/DigitalInclusion"));
+const GovernanceDemocraticParticipation = lazy(() => import("./pages/GovernanceDemocraticParticipation"));
 const RestorersProject = lazy(() => import("./pages/RestorersProject"));
 const InnovHubs = lazy(() => import("./pages/InnovHubs"));
 const Impact = lazy(() => import("./pages/Impact"));
@@ -43,6 +44,10 @@ const App = () => (
             <Route path="/tatua-salon" element={<TatuaSalon />} />
             <Route path="/youth-voice" element={<YouthVoice />} />
             <Route path="/digital-inclusion" element={<DigitalInclusion />} />
+            <Route
+              path="/governance-democratic-participation"
+              element={<GovernanceDemocraticParticipation />}
+            />
             <Route path="/restorers-project" element={<RestorersProject />} />
             <Route path="/impact" element={<Impact />} />
             <Route path="/get-involved" element={<GetInvolved />} />
