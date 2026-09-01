@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
-import heroImpact from "@/assets/hero-impact.jpg";
-import communityImage from "@/assets/hero-community.jpg";
+import communityDialogueImage from "@/assets/governance-community-dialogue.jpeg";
+import publicParticipationImage from "@/assets/governance-public-participation.jpeg";
 
 const participationApproaches = [
   {
@@ -68,8 +68,8 @@ const GovernanceDemocraticParticipation = () => {
       >
         <div className="absolute inset-0">
           <img
-            src={heroImpact}
-            alt="Community members participating in civic life"
+            src={communityDialogueImage}
+            alt="Community members taking part in a civic dialogue"
             className={cn(
               "w-full h-full object-cover transition-all duration-1000",
               heroVisible ? "scale-100" : "scale-110"
@@ -119,8 +119,8 @@ const GovernanceDemocraticParticipation = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl">
               <img
-                src={communityImage}
-                alt="Community members working together"
+                src={publicParticipationImage}
+                alt="Community members gathered for public participation"
                 className="w-full h-full object-cover"
               />
             </div>
