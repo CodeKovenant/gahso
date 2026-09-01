@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Users, Target, ArrowRight, Accessibility, Activity, Leaf, Smartphone } from "lucide-react";
+import { Heart, Users, Target, ArrowRight, Accessibility, Activity, Leaf, Smartphone, Landmark } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import heroPrograms from "@/assets/hero-programs.jpeg";
@@ -11,6 +11,7 @@ import programDisabilityInclusion from "@/assets/program-disability-inclusion.jp
 import programCommunityHealth from "@/assets/program-community-health.jpg";
 import programDigitalInclusion from "@/assets/program-digital-inclusion.jpg";
 import programClimateLivelihoods from "@/assets/program-climate-livelihoods.jpg";
+import governanceParticipation from "@/assets/hero-impact.jpg";
 
 const programs = [
   {
@@ -126,6 +127,25 @@ const programs = [
       "1,000+ individuals trained in digital skills",
       "5+ community internet hubs established",
       "200+ digital entrepreneurs supported",
+    ],
+  },
+  {
+    id: "governance-democratic-participation",
+    title: "Governance & Democratic Participation",
+    description: "GAHSO promotes accountable, transparent and inclusive governance by strengthening the participation of young people, women and marginalized communities in decisions that affect their lives.",
+    image: governanceParticipation,
+    icon: Landmark,
+    beneficiaries: "Young people, women, marginalized communities and citizens across Kenya",
+    focusAreas: [
+      "Civic education and awareness of rights",
+      "Community dialogues and public participation forums",
+      "County budget and service delivery monitoring",
+      "Social accountability and constructive dialogue with duty bearers",
+    ],
+    outcomes: [
+      "Citizens better understand their rights and responsibilities",
+      "Young people, women and marginalized communities have stronger voices in decisions",
+      "More transparent, responsive and people-centred governance",
     ],
   },
 ];
