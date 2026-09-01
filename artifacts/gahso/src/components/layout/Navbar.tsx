@@ -42,6 +42,7 @@ const fundedProjectLinks = [
 
 const allProgramPaths = [
   "/programs",
+  "/governance-democratic-participation",
   ...tatuaInitiativeLinks.map(l => l.path),
   ...fundedProjectLinks.map(l => l.path),
 ];
@@ -136,6 +137,18 @@ export function Navbar() {
                     )}
                   >
                     Thematic Programmes
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link
+                    to="/governance-democratic-participation"
+                    className={cn(
+                      "w-full cursor-pointer",
+                      location.pathname === "/governance-democratic-participation" &&
+                        "text-primary font-medium"
+                    )}
+                  >
+                    Governance & Democratic Participation
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -279,6 +292,18 @@ export function Navbar() {
                     )}
                   >
                     Thematic Programmes
+                  </Link>
+                  <Link
+                    to="/governance-democratic-participation"
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "text-sm font-medium transition-colors py-1",
+                      location.pathname === "/governance-democratic-participation"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-primary"
+                    )}
+                  >
+                    Governance & Democratic Participation
                   </Link>
                   
                   {/* TaTua Initiative Submenu */}
