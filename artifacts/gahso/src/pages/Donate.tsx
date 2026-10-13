@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import heroDonate from "@/assets/hero-donate.jpg";
+import donationCommunity from "@/assets/donation-community.jpg";
 
 const donationTiers = [
   {
@@ -109,134 +110,127 @@ const Donate = () => {
       {/* Donation Section */}
       <section ref={tiersRef} className="section-padding -mt-12">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-5 gap-8">
-            {/* Donation Tiers */}
-            <div className="lg:col-span-3 space-y-6">
-              <h2 className={cn(
-                "text-2xl font-serif font-bold text-foreground transition-all duration-700",
-                tiersVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}>
-                Choose Your Impact Level
-              </h2>
-              
-              <div className="grid sm:grid-cols-2 gap-4">
-                {donationTiers.map((tier, index) => (
+          <div className="grid lg:grid-cols-[0.95fr_1.05fr] items-stretch overflow-hidden rounded-3xl bg-card shadow-[var(--card-shadow)]">
+            {/* Community photo */}
+            <div className="relative min-h-[340px] sm:min-h-[440px] lg:min-h-[720px] overflow-hidden">
+              <img
+                src={donationCommunity}
+                alt="Community members taking part in a GAHSO gathering outdoors"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" aria-hidden="true" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 md:p-10 text-white">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-white/80">
+                  Community-led change
+                </p>
+                <h2 className="max-w-lg text-3xl font-serif font-bold leading-tight sm:text-4xl">
+                  Help create more opportunities for every community.
+                </h2>
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/90 sm:text-base">
+                  Your generosity supports practical, community-driven programs for young people and families.
+                </p>
+              </div>
+            </div>
+
+            {/* Donation form */}
+            <div className="p-6 sm:p-8 md:p-10">
+              <div className="mb-6">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+                  Make a difference
+                </p>
+                <h2 className="text-2xl font-serif font-bold text-foreground sm:text-3xl">
+                  Choose Your Impact Level
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  Select a suggested gift or enter an amount that works for you.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {donationTiers.map((tier) => (
                   <button
                     key={tier.amount}
+                    type="button"
+                    aria-pressed={selectedAmount === tier.amount}
                     onClick={() => handleAmountSelect(tier.amount)}
                     className={cn(
-                      "card-interactive p-6 text-left transition-all duration-500",
+                      "flex h-full flex-col rounded-xl border p-4 text-left transition-all duration-200",
                       selectedAmount === tier.amount
-                        ? "ring-2 ring-primary border-primary scale-[1.02]"
-                        : "hover:border-primary/50",
-                      tiersVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                        ? "border-primary bg-primary/5 ring-2 ring-primary/30"
+                        : "border-border bg-background hover:border-primary/50 hover:bg-primary/[0.03]"
                     )}
-                    style={{ transitionDelay: `${index * 100 + 100}ms` }}
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={cn(
-                        "w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center transition-all duration-300",
-                        selectedAmount === tier.amount && "bg-primary scale-110"
+                    <div className="mb-3 flex w-full items-center justify-between gap-3">
+                      <span className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-lg transition-colors",
+                        selectedAmount === tier.amount ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
                       )}>
-                        <tier.icon className={cn(
-                          "w-6 h-6 transition-colors",
-                          selectedAmount === tier.amount ? "text-primary-foreground" : "text-primary"
-                        )} />
-                      </div>
-                      <div className="text-2xl font-serif font-bold text-primary">
-                        ${tier.amount}
-                      </div>
+                        <tier.icon className="h-5 w-5" />
+                      </span>
+                      <span className="text-xl font-serif font-bold text-primary">{"$"}{tier.amount}</span>
                     </div>
-                    <h3 className="font-serif font-bold text-foreground mb-2">
-                      {tier.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      {tier.description}
-                    </p>
-                    <p className="text-xs text-primary font-medium">
-                      {tier.impact}
-                    </p>
+                    <span className="font-serif font-bold text-foreground">{tier.title}</span>
+                    <span className="mt-1 text-xs leading-relaxed text-muted-foreground">{tier.description}</span>
+                    <span className="mt-3 text-xs font-medium leading-relaxed text-primary">{tier.impact}</span>
                   </button>
                 ))}
               </div>
 
-              {/* Custom Amount */}
-              <div className={cn(
-                "card-elevated p-6 transition-all duration-700 delay-500",
-                tiersVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}>
-                <label className="block text-sm font-medium text-foreground mb-2">
+              <div className="mt-5">
+                <label htmlFor="custom-donation-amount" className="mb-2 block text-sm font-medium text-foreground">
                   Or enter a custom amount
                 </label>
                 <div className="relative group">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-bold group-focus-within:text-primary transition-colors">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-muted-foreground transition-colors group-focus-within:text-primary">
                     $
                   </span>
                   <input
+                    id="custom-donation-amount"
                     type="number"
                     value={customAmount}
                     onChange={(e) => handleCustomAmount(e.target.value)}
-                    className="w-full pl-10 pr-4 py-4 text-2xl font-bold rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full rounded-lg border border-input bg-background py-3 pl-10 pr-4 text-xl font-bold transition-all focus:border-transparent focus:ring-2 focus:ring-primary"
                     placeholder="Enter amount"
                     min="1"
+                    step="1"
+                    inputMode="numeric"
                   />
                 </div>
               </div>
-            </div>
 
-            {/* Payment Section */}
-            <div className="lg:col-span-2">
-              <div className={cn(
-                "card-elevated p-6 md:p-8 sticky top-24 transition-all duration-700 delay-300",
-                tiersVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
-              )}>
-                <h3 className="text-xl font-serif font-bold text-foreground mb-6">
-                  Make Your Donation
-                </h3>
-
-                {displayAmount && displayAmount > 0 && (
-                  <div className="bg-primary/10 rounded-xl p-4 mb-6 text-center animate-scale-in">
-                    <div className="text-sm text-muted-foreground mb-1">Suggested donation</div>
-                    <div className="text-4xl font-serif font-bold text-primary">
-                      ${displayAmount}
-                    </div>
-                  </div>
-                )}
-
-                <div className="space-y-4">
-                  <Button
-                    variant="donate"
-                    size="xl"
-                    className="w-full"
-                    onClick={() => setShowPayment(true)}
-                  >
-                    <Heart className="w-5 h-5 mr-2" />
-                    Donate Now
-                  </Button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    Secure payment powered by Paystack.
-                    Supports cards, mobile money, and bank transfers.
-                  </p>
+              {displayAmount && displayAmount > 0 && (
+                <div className="mt-5 rounded-xl bg-primary/10 p-4 text-center animate-scale-in">
+                  <div className="mb-1 text-sm text-muted-foreground">Your donation</div>
+                  <div className="text-3xl font-serif font-bold text-primary">{"$"}{displayAmount}</div>
                 </div>
+              )}
 
-                {/* Trust Indicators */}
-                <div className="mt-8 pt-6 border-t border-border">
-                  <div className="text-sm font-medium text-foreground mb-3">
-                    Your donation is safe
-                  </div>
-                  <ul className="space-y-2">
-                    {trustIndicators.map((indicator, index) => (
-                      <li
-                        key={indicator}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                        {indicator}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="mt-5 space-y-3">
+                <Button
+                  variant="donate"
+                  size="xl"
+                  className="w-full"
+                  onClick={() => setShowPayment(true)}
+                >
+                  <Heart className="mr-2 h-5 w-5" />
+                  Donate Now
+                </Button>
+                <p className="text-center text-xs leading-relaxed text-muted-foreground">
+                  Secure payment powered by Paystack. Supports cards, mobile money, and bank transfers.
+                </p>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="mt-6 border-t border-border pt-5">
+                <div className="mb-3 text-sm font-medium text-foreground">Your donation is safe</div>
+                <ul className="grid gap-2 sm:grid-cols-2">
+                  {trustIndicators.map((indicator) => (
+                    <li key={indicator} className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+                      {indicator}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
