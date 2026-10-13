@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Heart, Shield, Users, GraduationCap, Home, CheckCircle } from "lucide-react";
@@ -48,6 +48,64 @@ const trustIndicators = [
 
 const PAYSTACK_URL = "https://paystack.shop/pay/z1kku7swwc";
 
+const AIDOS_ORGANIZATION_ID = "organization_01M46146QRN21C4YT46CTD3028";
+const AIDOS_WIDGET_SCRIPT_URLS = [
+  "https://cdn.aseelapp.com/widget-v1.js",
+  "https://cdn.aseelapp.com/elements-v1.js",
+];
+
+let aidosWidgetScriptsPromise: Promise<void> | null = null;
+
+function loadAidosWidgetScripts(): Promise<void> {
+  if (!aidosWidgetScriptsPromise) {
+    const scriptLoads = AIDOS_WIDGET_SCRIPT_URLS.map(
+      (src) =>
+        new Promise<void>((resolve, reject) => {
+          const existing = Array.from(document.scripts).find((script) => script.src === src);
+          if (existing?.dataset.aidosLoaded === "true") {
+            resolve();
+            return;
+          }
+
+          const script = existing ?? document.createElement("script");
+          script.async = false;
+          script.dataset.organization = AIDOS_ORGANIZATION_ID;
+          script.addEventListener(
+            "load",
+            () => {
+              script.dataset.aidosLoaded = "true";
+              resolve();
+            },
+            { once: true },
+          );
+          script.addEventListener(
+            "error",
+            () => {
+              script.remove();
+              reject(new Error("Failed to load Aseel donation script: " + src));
+            },
+            { once: true },
+          );
+
+          if (!existing) {
+            script.src = src;
+            document.head.appendChild(script);
+          }
+        }),
+    );
+
+    aidosWidgetScriptsPromise = Promise.all(scriptLoads)
+      .then(() => undefined)
+      .catch((error: unknown) => {
+        aidosWidgetScriptsPromise = null;
+        throw error;
+      });
+  }
+
+  return aidosWidgetScriptsPromise;
+}
+
+
 const Donate = () => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
   const [customAmount, setCustomAmount] = useState("");
@@ -56,6 +114,12 @@ const Donate = () => {
   const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation({ threshold: 0.1 });
   const { ref: tiersRef, isVisible: tiersVisible } = useScrollAnimation({ threshold: 0.1 });
   const { ref: usageRef, isVisible: usageVisible } = useScrollAnimation({ threshold: 0.2 });
+
+  useEffect(() => {
+    void loadAidosWidgetScripts().catch((error: unknown) => {
+      console.error("Failed to load the Aseel donation widget:", error);
+    });
+  }, []);
 
   const handleAmountSelect = (amount: number) => {
     setSelectedAmount(amount);
