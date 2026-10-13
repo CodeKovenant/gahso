@@ -53,6 +53,7 @@ const AIDOS_WIDGET_SCRIPT_URLS = [
   "https://cdn.aseelapp.com/widget-v1.js",
   "https://cdn.aseelapp.com/elements-v1.js",
 ];
+const AIDOS_PRECONNECT_ORIGINS = ["https://cdn.aseelapp.com", "https://aseelapp.co"];
 
 let aidosWidgetScriptsPromise: Promise<void> | null = null;
 
@@ -116,9 +117,44 @@ const Donate = () => {
   const { ref: usageRef, isVisible: usageVisible } = useScrollAnimation({ threshold: 0.2 });
 
   useEffect(() => {
+    const widgetContainer = document.querySelector<HTMLElement>(
+      '[data-aidos-widget-id="widget_01M4TBXMQG4YB45BTNJF6J7FBF"]',
+    );
+    const eagerLoadWidgetIframe = () => {
+      const iframe = widgetContainer?.querySelector<HTMLIFrameElement>(
+        'iframe[title^="Aidos"]',
+      );
+      if (!iframe) return false;
+      iframe.loading = "eager";
+      return true;
+    };
+
+    let iframeObserver: MutationObserver | null = null;
+    if (widgetContainer) {
+      iframeObserver = new MutationObserver(() => {
+        if (eagerLoadWidgetIframe()) iframeObserver?.disconnect();
+      });
+      iframeObserver.observe(widgetContainer, { childList: true, subtree: true });
+      eagerLoadWidgetIframe();
+    }
+
+    for (const origin of AIDOS_PRECONNECT_ORIGINS) {
+      const alreadyConnected = Array.from(
+        document.head.querySelectorAll<HTMLLinkElement>('link[rel="preconnect"]'),
+      ).some((link) => link.href === origin);
+      if (!alreadyConnected) {
+        const link = document.createElement("link");
+        link.rel = "preconnect";
+        link.href = origin;
+        document.head.appendChild(link);
+      }
+    }
+
     void loadAidosWidgetScripts().catch((error: unknown) => {
       console.error("Failed to load the Aseel donation widget:", error);
     });
+
+    return () => iframeObserver?.disconnect();
   }, []);
 
   const handleAmountSelect = (amount: number) => {
