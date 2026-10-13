@@ -250,6 +250,7 @@ const Donate = () => {
             "text-center mb-12 transition-all duration-700",
             usageVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}>
+            <div data-aidos-widget-type="donation_form" data-aidos-campaign="camp_01M4GD62WPDXGQPTS0X3QCK3VG" data-aidos-widget-id="widget_01M4TBXMQG4YB45BTNJF6J7FBF"></div>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
               How Your Donation Is Used
             </h2>
